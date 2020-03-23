@@ -1,16 +1,15 @@
 Présentation
 ============
 
-Ce plugin pour Jeedom permet l'aide au maintien à domicile des personnes âgées.
-La demande initiale vient de ce sujet sur le forum : [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111/2).
-A ce jour, les principales fonctionnalités sont :
-* Détection d’inactivité
+Ce plugin fait parti d'un ensemble de plugins pour Jeedom permettant l'aide au maintien à domicile des personnes âgées : SeniorCare.
+
+La demande initiale vient de ce sujet sur le forum : [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111).
+
+Ce plugin permet la gestion de :
 * Gestion de boutons d’alertes
 * Surveillance du confort (température, humidité, CO2, …)
-* Surveillance sécurité (détecteurs de fumée, de fuite de gaz, …)
-* Surveillance de « Dérive comportementale » afin de détecter et prendre en charge au plus tôt et donc au mieux, les difficultés inhérentes à l'âge
 
-Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcare/)
+Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcare-confort-security/)
 
 Si vous souhaitez participer au projet, n’hésitez pas à le faire savoir ici [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111/2)
 
@@ -26,33 +25,12 @@ Changelog
 
 Ce plugin est en cours de développement, toutes les fonctions ne sont pas encore codées, certaines n'ont été que partiellement testées.
 
-Beta 0.0.1 - 18 mars 2020 :
----
-* Fonction "Détection d’inactivités"
-* Fonction "Bouton d'alerte"
-* Fonction "Capteurs confort"
-
-Beta 0.0.2 - 21 mars 2020
----
-* refactorisation du code, relecture et debug
-* Ajout Gestion des capteurs Sécurité
-* session de test n°1 et debug associé - voir docs/fr_FR/tests.md
-* Ajout des actions de désactivation des alertes "bouton d'alerte", "capteur sécurité" et "capteur confort"
-* Ajout de la gestion de la non-répétition des alertes sur les capteurs confort
-* Capteurs conforts évalués par cron15 et non plus par listener
-* Mise à jour de la doc
-
-0.0.3 & 0.0.4 - 22 mars 2020
+Beta 0.0.1 - 22 mars 2020
 ---
 
-* debug erreur js sur la liste des actions lorsque tous les capteurs sont dans les seuils
-* debug 2 autres erreurs js de ce type
-* creation puis correction de l'erreur de suppression du "bouton d'alerte"
-* changement du tag #value# en #sensor_value# pour éviter les interferences avec le tag #value# du core
-* ajout des tag #sensor_name# et #sensor_type# pour les actions d'alerte de securité
-* debug sur les capteurs conforts !
-* Mise à jour de la doc
-
+* Gestion des capteurs de confort
+* Gestion des capteurs Sécurité
+* Création documentation
 
 Configuration du plugin
 ========================
@@ -64,49 +42,7 @@ Onglet Général
 * Indiquer le nom de la personne
 * "Objet parent" : il s'agit de l'objet Jeedom auquel rattacher la personne. Il doit etre différent de "Aucun"
 * Activer la personne
-* Visible sert a visualiser les infos sur le dashboard, pour l'instant il n'y a rien a visualiser
-
-Onglet **Gestion absences**
----
-To Do
-L’objectif ici étant de lier ce plugin au plugin « Agenda » pour les jours d’absence réguliers et les vacances.
-Il permet également d’ajouter les capteurs adéquats pour savoir si la personne est présente ou non pedant les absences ponctuelles.
-En cas d'absence, il convient de désactiver entre autres la fonction de détection d’inactivité.
-
-Onglet **Détection d'inactivité**
----
-Il s'agit ici de déclencher une alerte en cas d'absence d’activité de la personne, cas d'un malaise ou d'une chute par exemple.
-
-**A améliorer : le délai de détection d'inactivité selon jour ou nuit**
-
-Trois étapes de fonctionnement :
-
-1. Définir les capteurs de détection d’activité (ouverture porte, fenêtre, interrupteur, mouvement, …) et un délai associé. Si aucun des capteurs d'activité n'a été activé à l’échéance du délai, le plugin déclenchera l’étape suivante « Avertissement ».
-2. « Avertissement » :
-  * L'objectif de cette étape est de prévenir la personne que le système a détecté une inactivité et lui permettre de réagir avant que l’alerte ne soit envoyée aux aidants extérieurs
-  * Configuration à réaliser :
-    - définir la liste des actions à lancer pour l’avertissement
-    - définir la durée maximum pendant laquelle la personne pourra réagir avant de déclencher l'alerte
-    - définir les actions permettant d'annuler l’avertissement si la personne réagit (la réaction de la personne est détectée par n’importe quel capteur définis à l’étape 1)
-  * Si la personne ne réagit pas dans le délai imparti, le plugin passera a l'étape "Alerte". Dans ce cas, les actions pour "annuler l'avertissement" ne seront pas réalisées.
-3. « Alerte » :
-  * Définir la liste des actions à lancer afin d’alerter les aidants et informer la personne dépendante qu’une alerte est en cours
-  * Définir la liste d’actions permettant de désactiver ces actions d’alerte. L'alerte est déactivée par n’importe quel capteur de l’étape 1. La personne dans son logement ou un aidant une fois sur place pourront donc le faire
-
-![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Detection_inactivite.png)
-
-Onglet **Bouton d'alerte**
----
-Cet onglet permet de regrouper différents boutons d'alertes immédiates que la personne pourra activer pour demander de l'aide. Il peut s'agir d'un bouton à porter sur soi ou de boutons dans une zone particulière.
-
-* Définir un ou plusieurs capteurs de type "bouton" ou "interrupteur"
-* Définir les actions qui seront immédiatement réalisées à l'activation de n'importe lequel de ces capteurs
-* Définir un ou plusieurs capteurs de type "bouton" ou "interrupteur" qui serviront à annuler l'alerte
-* Définir les actions qui seront réalisées à l'activation des capteurs d'annulation
-
-Si l'une de vos action est de type "message", vous pouvez utiliser le tag #senior_name# qui enverra le nom configuré dans l'onglet "Général".
-
-![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Boutons_alerte.png)
+* Visible sert a visualiser les infos sur le dashboard
 
 Onglet **Confort**
 ---
@@ -156,38 +92,14 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * #sensor_name# : nom du capteur ayant déclenché l'alerte (uniquement pour l'alerte et non pour l'annulation d'alerte)
   * #sensor_type# : type de ce capteur - attention, le type sera donné en anglais
 
-![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Onglet_securité.png)
-
-Onglet **Dérive comportementale**
----
-To Do
-
-Prévu à ce jour : faire une liste de cases à cocher selon les risques que l’on souhaite suivre pour cette personne, avec les risques suivants (liste à compléter, toute suggestion sera bienvenue !) :
-
-* Rythme de vie : suivre les horaires de lever/coucher/sieste
-* Isolement : suivre le nombre de sorties par jour/semaines (éventuellement liées a la météo)
-* Infection urinaire : ici on pourra surveiller 2 capteurs (au choix ou les 2 ensemble) : Nombre de lever la nuit et Nombre de chasse d’eau jour et nuit.
-* Alimentation : suivre le Nombre d’ouverture du frigo / jour et les tranches horaires pour voir si décalage dans la prise des repas avec alerte si le frigo n’a pas été ouvert bien que la personne soit présente
+![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Securite.png)
 
 
 Onglet **Avancé - Commandes Jeedom**
 ---
-Panneau desktop
-================
-To Do - Il permettra de suivre les différents capteurs et visualiser les alertes
 
 Comportement au démarrage et après redémarrage Jeedom
 ======
-
-Fonction de **Détection d'inactivité**
----
-* Après création et première sauvegarde, le déclenchement de l'un des capteur d'activité initialise le mécanisme. En cas de non-déclenchement de l'un de ces capteurs d'activité dans cette minute, les actions d' "avertissement" vont se lancer.
-* Après un redémarrage de Jeedom, le système aura perdu l'information de la date du dernier capteur d'activité et si des alarmes ont déjà été envoyées. Les actions warnings vont donc se déclencher. Aussi, en cas de redémarrage de Jeedom, vous devrez penser à activer un des capteurs d'activité dans la première minute.
-
-
-Fonction **Bouton d'alerte**
----
-RAS
 
 Fonction **Confort**
 ---
@@ -199,15 +111,7 @@ RAS
 
 Remarques générales
 ===
-* Pour les capteurs "détections d'inactivité", "bouton d'alerte", "bouton d'annulation d'alerte", "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte !
+* Pour les capteurs "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte !
 * Pour les capteurs conforts, leur valeur est évaluée toutes les 15 min et non à chaque changement
 * L'ensemble des capteurs définis dans le plugin doivent posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau. De fait, la totalité de l'historique associé à ce capteur sera donc perdu.
 
-Exemples d'usage et configuration associée
-========================
-
-Bonus : configuration pour recevoir les alertes par notification sur un smartphone android
-========================
-
-Bonus 2 : configuration pour mettre un jour un widget sur un smartphone android selon les infos de ce plugin
-========================

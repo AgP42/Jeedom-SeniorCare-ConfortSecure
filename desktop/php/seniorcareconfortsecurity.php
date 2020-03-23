@@ -2,7 +2,7 @@
 if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
-$plugin = plugin::byId('seniorcare');
+$plugin = plugin::byId('seniorcareconfortsecurity');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 ?>
@@ -49,17 +49,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <li role="presentation"><a href="#" class="eqLogicAction" aria-controls="home" role="tab" data-toggle="tab" data-action="returnToThumbnailDisplay"><i class="fa fa-arrow-circle-left"></i></a></li>
     <li role="presentation" class="active"><a href="#eqlogictab" aria-controls="home" role="tab" data-toggle="tab"><i class="fas fa-tachometer-alt"></i> {{Général}}</a></li>
 
-    <li role="presentation"><a href="#absencestab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-calendar-alt"></i> {{Gestion absences}}</a></li>
-
-    <li role="presentation"><a href="#lifesigntab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fas fa-heartbeat"></i> {{Détection d'inactivité}}</a></li>
-
-    <li role="presentation"><a href="#alertbttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fas fa-toggle-on"></i> {{Bouton d'alerte}}</a></li>
-
     <li role="presentation"><a href="#conforttab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fas fa-spa"></i> {{Confort}}</a></li>
 
     <li role="presentation"><a href="#securitytab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fas fa-exclamation-triangle"></i> {{Sécurité}}</a></li>
-
-    <li role="presentation"><a href="#alertesPerteAutonomietab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-brain"></i> {{Dérive comportementale}}</a></li>
 
     <li role="presentation"><a href="#commandtab" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-list-alt"></i> {{Avancé - Commandes Jeedom}}</a></li>
 
@@ -119,183 +111,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
       </div-->
         </fieldset>
       </form>
-    </div>
-
-    <!-- TAB Capteurs absences -->
-    <div class="tab-pane" id="absencestab">
-      <br/>
-      <div class="alert alert-info">
-        {{TODO : gérer la liaison avec le plugin Agenda pour saisir les absences prévues, et ajouter les boutons ou capteurs du logement à utiliser pour détecter la présence/absence de la personne de son logement}}
-      </div>
-
-    </div>
-
-    <!-- TAB Capteurs Détection d'inactivité (qui s'appellera life_sign dans le code !) -->
-
-    <!-- TODO : ajouter des actions pour que l'aidant puisse prévenir la personne dépendante de la bonne prise en compte de l'alerte ? Beaucoup plus simple a faire en externe du plugin... a voir !! -->
-
-    <div class="tab-pane" id="lifesigntab">
-      <br/>
-      <div class="alert alert-info">
-        {{Onglet de configuration des capteurs indiquant une activité de la personne dépendante.
-        Un premier niveau d'alerte permet de prévenir la personne dépendante d'une alerte imminente afin de la désactiver.
-        Sans réaction de sa part, une alerte sera envoyée aux aidants.}}
-      </div>
-
-      <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-heartbeat"></i> {{Capteurs d'activités}} <sup><i class="fas fa-question-circle tooltips" title="{{Capteurs déclenchant une alerte en cas d'inactivation pendant un certain délai}}"></i></sup>
-            <a class="btn btn-success btn-sm addSensorLifeSign" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un capteur}}</a>
-          </legend>
-
-          <div id="div_life_sign"></div>
-
-          <legend><i class="fas fa-stopwatch"></i> {{Délai avant avertissement d'inactivité}} <sup><i class="fas fa-question-circle tooltips" title="{{Délai au terme duquel une alerte se déclenchera si aucun capteur d'activités n'est activé. TODO - A paufiner selon jour/nuit, etc.}}"></i></sup>
-          </legend>
-
-          <div class="form-group">
-            <label class="col-sm-2 control-label">{{Délai en minutes}}</label>
-            <div class="col-sm-1">
-              <input type="number" min="0" class="eqLogicAttr form-control tooltips" data-l1key="configuration" data-l2key="life_sign_timer" />
-            </div>
-          </div>
-
-        </fieldset>
-      </form>
-
-      <br>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <form class="form-horizontal">
-            <fieldset>
-              <legend><i class="fas fa-user-clock"></i> {{Actions avertissement de détection d'inactivité - pour la personne dépendante}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées sans détection d'activité depuis le délai consideré.
-              La personne dépendante dispose d'un certain temps pour désactiver l'alerte avant transmission aux aidants}}"></i></sup>
-                <a class="btn btn-success btn-sm addAction" data-type="action_warning_life_sign" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-              </legend>
-              <div id="div_action_warning_life_sign"></div>
-
-
-              <label class="col-lg-4 control-label">{{Délai avant de prévenir les aidants}} <sup><i class="fas fa-question-circle tooltips" title="{{Délai pendant lequel la personne dépendante peut désactiver l'alerte par activation
-              d'un capteur d'activité, avant signalement aux aidants}}"></i></sup></label>
-              <div class="col-lg-2">
-                <input type="number" class="eqLogicAttr form-control tooltips" data-l1key="configuration" data-l2key="warning_life_sign_timer" title="{{}}"/>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-
-        <div class="col-lg-6">
-          <form class="form-horizontal">
-            <fieldset>
-              <legend><i class="fas fa-user-slash"></i> {{Actions de désactivation des avertissements}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées lors du déclenchement d'un capteur d'activité alors
-              que les actions d'avertissement ont été activées.}}"></i></sup>
-                <a class="btn btn-danger btn-sm addAction" data-type="action_desactivate_warning_life_sign" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-              </legend>
-              <div id="div_action_desactivate_warning_life_sign"></div>
-
-            </fieldset>
-          </form>
-        </div>
-      </div>
-
-      <br>
-
-      <div class="row">
-        <div class="col-lg-6">
-          <form class="form-horizontal">
-            <fieldset>
-              <legend><i class="fas fa-bell"></i> {{Actions alerte de détection d'inactivité - pour les aidants}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées à l'échéance du délai de désactivation de l'alerte par la personne dépendante.}}"></i></sup>
-                <a class="btn btn-success btn-sm addAction" data-type="action_alert_life_sign" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-              </legend>
-              <div id="div_action_alert_life_sign"></div>
-
-            </fieldset>
-          </form>
-        </div>
-
-        <div class="col-lg-6">
-          <form class="form-horizontal">
-            <fieldset>
-              <legend><i class="fas fa-bell-slash"></i> {{Actions de désactivation des alertes}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées lors du déclenchement d'un capteur d'activité alors que
-              les actions d'alerte vers les aidants ont été activées.}}"></i></sup>
-                <a class="btn btn-danger btn-sm addAction" data-type="action_desactivate_alert_life_sign" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-              </legend>
-              <div id="div_action_desactivate_alert_life_sign"></div>
-
-            </fieldset>
-          </form>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- TAB Capteurs Bouton alerte immédiate -->
-    <div class="tab-pane" id="alertbttab">
-      <br/>
-      <div class="alert alert-info">
-        {{Onglet de configuration de boutons d'alerte immédiate pour prévenir les aidants.}}
-      </div>
-
-<!--
-        <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-toggle-on"></i> {{Boutons d'alerte immédiate (quel actionneur va lancer une alerte ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Bouton à porter pour déclencher une alerte immédiate.}}"></i></sup>
-            <a class="btn btn-success btn-sm addSensorBtAlert" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un bouton}}</a>
-          </legend>
-          <div id="div_alert_bt"></div>
-        </fieldset>
-      </form>
-
-      <br>
--->
-
-        <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-toggle-on"></i> {{Boutons d'alerte immédiate (quel actionneur va lancer une alerte ?)}}
-            <a class="btn btn-success btn-sm addSensorBtAlert" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un bouton}}</a>
-          </legend>
-          <div id="div_alert_bt"></div>
-        </fieldset>
-      </form>
-
-      <br>
-
-      <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-bomb"></i> {{Actions alerte immédiate vers les aidants (pour alerter, je dois ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées à l'activation d'un bouton d'alerte par la personne dépendante.
-          Tag utilisable : #senior_name#.}}"></i></sup>
-            <a class="btn btn-success btn-sm addAction" data-type="action_alert_bt" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-          </legend>
-          <div id="div_action_alert_bt"></div>
-
-        </fieldset>
-      </form>
-
-      <br>
-
-      <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-toggle-off"></i> {{Boutons d'annulation d'alerte (quel actionneur pour couper l'alerte ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Bouton de désactivation d'alerte}}"></i></sup>
-            <a class="btn btn-success btn-sm addSensorCancelBtAlert" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un bouton}}</a>
-          </legend>
-          <div id="div_cancel_alert_bt"></div>
-        </fieldset>
-      </form>
-
-      <br>
-
-      <form class="form-horizontal">
-        <fieldset>
-          <legend><i class="fas fa-hand-paper"></i> {{Actions pour arrêter l'alerte vers les aidants (pour annuler l'alerte, je dois ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées sur activation d'un bouton d'annulation d'alerte.
-          Tag utilisable : #senior_name#.}}"></i></sup>
-            <a class="btn btn-success btn-sm addAction" data-type="action_cancel_alert_bt" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
-          </legend>
-          <div id="div_action_cancel_alert_bt"></div>
-
-        </fieldset>
-      </form>
-
     </div>
 
     <!-- TAB Capteurs Confort -->
@@ -418,15 +233,6 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
     </div>
 
-    <!-- TAB Perte Autonomie -->
-    <div class="tab-pane" id="alertesPerteAutonomietab">
-      <br/>
-      <div class="alert alert-info">
-        {{TODO : en attente de la liste des critères à prendre en compte pour gèrer la perte d'autonomie}}
-      </div>
-
-    </div>
-
     <!-- TAB COMMANDES -->
     <div role="tabpanel" class="tab-pane" id="commandtab">
       <a class="btn btn-success btn-sm cmdAction pull-right" data-action="add" style="margin-top:5px;"><i class="fa fa-plus-circle"></i> {{Commandes}}</a><br/><br/>
@@ -442,13 +248,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
     </div>
 
 
-
-
-
   </div> <!-- fin DIV contenant toutes les tab -->
 
 </div>
 </div>
 
-<?php include_file('desktop', 'seniorcare', 'js', 'seniorcare');?>
+<?php include_file('desktop', 'seniorcareconfortsecurity', 'js', 'seniorcareconfortsecurity');?>
 <?php include_file('core', 'plugin.template', 'js');?>

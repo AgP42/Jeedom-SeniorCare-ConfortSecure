@@ -5,30 +5,6 @@ Infos/constatations :
 Tests sur v0.0.2 du 19 au 21 mars 2020
 ###
 
-Tests sur détection inactivité
----
-
-1. Creation personne et conf puis save et attendre CRON sans action
-=> au 1er CRON il détecte une inactivité depuis 1970, sans warning actif, donc il va lancer le warning. => Documenter le comportement au demarrage
-
-2. sans action, le timer warning arrive a échéance et les actions alertes sont réalisées. => OK
-
-3. On active un capteur => les actions de desactivation warning et alertes sont bien lancées => OK
-
-4. REBOOT JEEDOM => le cache est perdu, au 1er CRON après redemarrage, les actions warnings sont appliquées (last event en 1970 et aucune alerte en cours enregistrée) => A documenter, au moins ca va dans le sens de la sécurité...
-
-5. Tests de desactivation warning puis alerte => OK
-
-Tests sur bouton d'alerte (apres avoir ajouté les capteurs et actions de desactivation)
----
-
-0. Creation de la conf et vérification en DB que les capteurs et les listeners sont bien présents => OK
-1. Trigger bouton alerte => action alerte ok
-2. Trigger bouton desactivation alerte => action desactivation alerte ok
-3. Trigger bouton alerte plusieurs fois => action alerte relancée a chaque fois
-4. idem bouton desactivation => idem
-=> Test OK
-
 Tests sur capteurs sécurité (apres avoir ajouté les capteurs et actions de désactivation)
 ---
 

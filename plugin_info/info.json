@@ -1,21 +1,20 @@
 {
-	"id" : "seniorcare",
-	"name" : "Senior Care",
-	"description" : "Plugin pour l'assistance aux personnes âgées",
-	"licence" : "AGPL",
-	"author" : "Agp42",
-	"require" : "3.2",
-	"category" : "security",
-  "display" : "panel",
-	"hasDependency" : false,
-	"hasOwnDeamon" : false,
-	"maxDependancyInstallTime" : 0,
-	"changelog" : "https://agp42.github.io/seniorcare/#language#/changelog",
-	"documentation" : "https://agp42.github.io/seniorcare/#language#/",
-	"link" : {
-		"forum":"Lien vers le forum",
-		"video" : "Lien vers une video"
-	},
-	"language" : ["fr_FR","en_US"],
-	"compatibility" : ["miniplus","smart","rpi","docker","diy", "v4"]
+	"id" : "seniorcareconfortsecurity",
+	"name" : "Senior Care - Confort et Sécurité",
+  "description" : "Plugin pour l'assistance aux personnes âgées - Gestion du confort et de la sécurité du logement",
+  "licence" : "AGPL",
+  "author" : "Agp42",
+  "require" : "3.2",
+  "category" : "security",
+  "hasDependency" : false,
+  "hasOwnDeamon" : false,
+  "maxDependancyInstallTime" : 0,
+  "changelog" : "https://agp42.github.io/seniorcareconfortsecurity/#language#/changelog",
+  "documentation" : "https://agp42.github.io/seniorcareconfortsecurity/#language#/",
+  "link" : {
+    "forum":"https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111",
+    "video" : "Lien vers une video"
+  },
+  "language" : ["fr_FR","en_US"],
+  "compatibility" : ["miniplus","smart","rpi","docker","diy", "v4"]
 }

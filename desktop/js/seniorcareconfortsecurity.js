@@ -17,17 +17,6 @@
 
 // permet de reorganiser les elements de la div en les cliquant/deplacant
 /* // commenté pour debug, c'est insupportable sur un écran de smartphone...
-$("#div_life_sign").sortable({axis: "y", cursor: "move", items: ".life_sign", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_warning_life_sign").sortable({axis: "y", cursor: "move", items: ".action_warning_life_sign", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_desactivate_warning_life_sign").sortable({axis: "y", cursor: "move", items: ".action_desactivate_warning_life_sign", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_alert_life_sign").sortable({axis: "y", cursor: "move", items: ".action_alert_life_sign", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_desactivate_alert_life_sign").sortable({axis: "y", cursor: "move", items: ".action_desactivate_alert_life_sign", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-
-$("#div_alert_bt").sortable({axis: "y", cursor: "move", items: ".alert_bt", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_alert_bt").sortable({axis: "y", cursor: "move", items: ".action_alert_bt", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_cancel_alert_bt").sortable({axis: "y", cursor: "move", items: ".cancel_alert_bt", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-$("#div_action_cancel_alert_bt").sortable({axis: "y", cursor: "move", items: ".action_cancel_alert_bt", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
-
 $("#div_confort").sortable({axis: "y", cursor: "move", items: ".confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_cancel_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_cancel_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -39,19 +28,6 @@ $("#div_cancel_security").sortable({axis: "y", cursor: "move", items: ".cancel_s
 $("#div_action_cancel_security").sortable({axis: "y", cursor: "move", items: ".action_cancel_security", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 //*/
 
-
-// le bouton "ajouter un capteur" de l'onglet détection d'inactivité
-$('.addSensorLifeSign').off('click').on('click', function () {
-  addSensorLifeSign({});
-});
-// le bouton "ajouter un bt d'alerte" de l'onglet bouton d'alerte
-$('.addSensorBtAlert').off('click').on('click', function () {
-  addSensorBtAlert({});
-});
-// le bouton "ajouter un bt d'annulation d'alerte" de l'onglet bouton d'alerte
-$('.addSensorCancelBtAlert').off('click').on('click', function () {
-  addSensorCancelBtAlert({});
-});
 // le bouton "ajouter un capteur" de l'onglet confort
 $('.addSensorConfort').off('click').on('click', function () {
   addSensorConfort({});
@@ -60,7 +36,7 @@ $('.addSensorConfort').off('click').on('click', function () {
 $('.addSensorSecurity').off('click').on('click', function () {
   addSensorSecurity({});
 });
-// le bouton "ajouter un bt d'annulation d'alerte" de l'onglet bouton d'alerte
+// le bouton "ajouter un bt d'annulation d'alerte" de l'onglet security
 $('.addSensorCancelSecurity').off('click').on('click', function () {
   addSensorCancelSecurity({});
 });
@@ -126,125 +102,6 @@ $('body').off('focusout','.cmdAction.expressionAttr[data-l1key=cmd]').on('focuso
 });
 
 //////////////// Les fonctions CAPTEURS /////////////////////////////////
-
-// ajoute chaque ligne de CAPTEUR de détection d'inactivité, à la demande
-function addSensorLifeSign(_info) {
-  var div = '<div class="life_sign">';
-    div += '<div class="form-group ">';
-
-      div += '<label class="col-sm-1 control-label">{{Nom}}</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<span class="input-group-btn">';
-          div += '<a class="btn btn-default bt_removeAction roundedLeft" data-type="life_sign" title="{{Supprimer le capteur}}""><i class="fas fa-minus-circle"></i></a>';
-          div += '</span>';
-          div += '<input class="expressionAttr form-control cmdInfo" data-l1key="name" title="{{Le nom doit être unique}}"/>'; // dans la class ['name']
-        div += '</div>';
-      div += '</div>';
-
-      div += '<label class="col-sm-1 control-label">Capteur</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<input class="expressionAttr roundedLeft form-control cmdInfo" data-l1key="cmd" />'; // dans la class on retrouvera le resultat avec un ['cmd'] sous forme #10# qui represente l'id de la cmd referencé
-          div += '<span class="input-group-btn">';
-          div += '<a class="btn btn-default listCmdInfoWindow roundedRight" title="{{Selectionner le capteur}}"><i class="fas fa-list-alt"></i></a>';
-          div += '</span>';
-        div += '</div>';
-      div += '</div>';
-
-  //    div += '<div class="col-sm-1">';
-  //      div += '<label class="checkbox-inline"><input type="checkbox" class="expressionAttr cmdInfo" data-l1key="invert" title="{{Cocher si ce capteur renvoie un 0 lors d\'une activation}}"/>{{Inverser}}</label>';
-  //    div += '</div>';
-
-      div += '<label class="col-sm-1 control-label">{{Type de capteur }}</label>';
-      div += '<div class="col-sm-1">';
-        div += '<select class="expressionAttr eqLogicAttr form-control tooltips" data-l1key="sensor_life_sign_type">';
-        div += '<option value="other">Divers</option>';
-        div += '<option value="frigo">Frigidaire</option>';
-        div += '<option value="toilettes">Chasse d\'eau</option>';
-        div += '<option value="lit">Présence lit</option>';
-        div += '<option value="interrupteur">Interrupteur</option>';
-        div += '<option value="detecteur_mvt">Détecteur de mouvement</option>';
-        div += '</select>';
-      div += '</div>';
-
-    div += '</div>';
-  div += '</div>';
-  $('#div_life_sign').append(div);
-  $('#div_life_sign .life_sign').last().setValues(_info, '.expressionAttr');
-}
-
-// ajoute chaque ligne de bt alerte immédiate
-function addSensorBtAlert(_info) {
-  var div = '<div class="alert_bt">';
-    div += '<div class="form-group ">';
-
-      div += '<label class="col-sm-1 control-label">{{Nom}}</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<span class="input-group-btn">';
-          div += '<a class="btn btn-default bt_removeAction roundedLeft" data-type="alert_bt" title="{{Supprimer le bouton}}""><i class="fas fa-minus-circle"></i></a>';
-          div += '</span>';
-          div += '<input class="expressionAttr form-control cmdInfo" data-l1key="name" title="{{Le nom doit être unique}}"/>'; // dans la class ['name']
-        div += '</div>';
-      div += '</div>';
-
-      div += '<label class="col-sm-1 control-label">Capteur</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<input class="expressionAttr form-control cmdInfo" data-l1key="cmd" />';
-          div += '<span class="input-group-btn">';
-            div += '<a class="btn btn-default listCmdInfoWindow roundedRight"><i class="fas fa-list-alt"></i></a>';
-          div += '</span>';
-        div += '</div>';
-      div += '</div>';
-
-  // TODO : ajouter gestion des boutons inversés ?
-  //    div += '<div class="col-sm-1">';
-  //      div += '<label class="checkbox-inline"><input type="checkbox" class="expressionAttr cmdInfo" data-l1key="invert" title="{{Cocher si ce capteur renvoie un 0 lors d\'une activation}}"/>{{Inverser}}</label>';
-  //    div += '</div>';
-
-    div += '</div>';
-  div += '</div>';
-  $('#div_alert_bt').append(div);
-  $('#div_alert_bt .alert_bt').last().setValues(_info, '.expressionAttr');
-}
-
-// ajoute chaque ligne de bt alerte immédiate
-function addSensorCancelBtAlert(_info) {
-  var div = '<div class="cancel_alert_bt">';
-    div += '<div class="form-group ">';
-
-      div += '<label class="col-sm-1 control-label">{{Nom}}</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<span class="input-group-btn">';
-          div += '<a class="btn btn-default bt_removeAction roundedLeft" data-type="cancel_alert_bt" title="{{Supprimer le bouton}}""><i class="fas fa-minus-circle"></i></a>';
-          div += '</span>';
-          div += '<input class="expressionAttr form-control cmdInfo" data-l1key="name" title="{{Le nom doit être unique}}"/>'; // dans la class ['name']
-        div += '</div>';
-      div += '</div>';
-
-      div += '<label class="col-sm-1 control-label">Capteur</label>';
-      div += '<div class="col-sm-2">';
-        div += '<div class="input-group">';
-          div += '<input class="expressionAttr form-control cmdInfo" data-l1key="cmd" />';
-          div += '<span class="input-group-btn">';
-            div += '<a class="btn btn-default listCmdInfoWindow roundedRight"><i class="fas fa-list-alt"></i></a>';
-          div += '</span>';
-        div += '</div>';
-      div += '</div>';
-
-  // TODO : ajouter gestion des boutons inversés ?
-  //    div += '<div class="col-sm-1">';
-  //      div += '<label class="checkbox-inline"><input type="checkbox" class="expressionAttr cmdInfo" data-l1key="invert" title="{{Cocher si ce capteur renvoie un 0 lors d\'une activation}}"/>{{Inverser}}</label>';
-  //    div += '</div>';
-
-    div += '</div>';
-  div += '</div>';
-  $('#div_cancel_alert_bt').append(div);
-  $('#div_cancel_alert_bt .cancel_alert_bt').last().setValues(_info, '.expressionAttr');
-}
 
 // ajoute chaque ligne de capteur confort
 // tout ce qui a la class expressionAttr sera enregistré et retrouvable dans la class.php
@@ -411,17 +268,6 @@ function saveEqLogic(_eqLogic) {
   if (!isset(_eqLogic.configuration)) {
     _eqLogic.configuration = {};
   }
-  _eqLogic.configuration.life_sign = $('#div_life_sign .life_sign').getValues('.expressionAttr');
-  _eqLogic.configuration.action_warning_life_sign = $('#div_action_warning_life_sign .action_warning_life_sign').getValues('.expressionAttr');
-  _eqLogic.configuration.action_desactivate_warning_life_sign = $('#div_action_desactivate_warning_life_sign .action_desactivate_warning_life_sign').getValues('.expressionAttr');
-  _eqLogic.configuration.action_alert_life_sign = $('#div_action_alert_life_sign .action_alert_life_sign').getValues('.expressionAttr');
-  _eqLogic.configuration.action_desactivate_alert_life_sign = $('#div_action_desactivate_alert_life_sign .action_desactivate_alert_life_sign').getValues('.expressionAttr');
-
-  _eqLogic.configuration.alert_bt = $('#div_alert_bt .alert_bt').getValues('.expressionAttr');
-  _eqLogic.configuration.action_alert_bt = $('#div_action_alert_bt .action_alert_bt').getValues('.expressionAttr');
-  _eqLogic.configuration.cancel_alert_bt = $('#div_cancel_alert_bt .cancel_alert_bt').getValues('.expressionAttr');
-  _eqLogic.configuration.action_cancel_alert_bt = $('#div_action_cancel_alert_bt .action_cancel_alert_bt').getValues('.expressionAttr');
-
   _eqLogic.configuration.confort = $('#div_confort .confort').getValues('.expressionAttr');
   _eqLogic.configuration.action_warning_confort = $('#div_action_warning_confort .action_warning_confort').getValues('.expressionAttr');
   _eqLogic.configuration.action_cancel_warning_confort = $('#div_action_cancel_warning_confort .action_cancel_warning_confort').getValues('.expressionAttr');
@@ -437,18 +283,6 @@ function saveEqLogic(_eqLogic) {
 
 // fct core permettant de restituer les cmd declarées
 function printEqLogic(_eqLogic) {
-
-  $('#div_life_sign').empty();
-  $('#div_action_warning_life_sign').empty();
-  $('#div_action_desactivate_warning_life_sign').empty();
-  $('#div_action_alert_life_sign').empty();
-  $('#div_action_desactivate_alert_life_sign').empty();
-
-  $('#div_alert_bt').empty();
-  $('#div_action_alert_bt').empty();
-  $('#div_cancel_alert_bt').empty();
-  $('#div_action_cancel_alert_bt').empty();
-
   $('#div_confort').empty();
   $('#div_action_warning_confort').empty();
   $('#div_action_cancel_warning_confort').empty();
@@ -460,51 +294,6 @@ function printEqLogic(_eqLogic) {
   $('#div_action_cancel_security').empty();
 
   if (isset(_eqLogic.configuration)) {
-    if (isset(_eqLogic.configuration.life_sign)) {
-      for (var i in _eqLogic.configuration.life_sign) {
-        addSensorLifeSign(_eqLogic.configuration.life_sign[i]);
-      }
-    }
-    if (isset(_eqLogic.configuration.action_warning_life_sign)) {
-      for (var i in _eqLogic.configuration.action_warning_life_sign) {
-        addAction(_eqLogic.configuration.action_warning_life_sign[i], 'action_warning_life_sign');
-      }
-    }
-    if (isset(_eqLogic.configuration.action_desactivate_warning_life_sign)) {
-      for (var i in _eqLogic.configuration.action_desactivate_warning_life_sign) {
-        addAction(_eqLogic.configuration.action_desactivate_warning_life_sign[i], 'action_desactivate_warning_life_sign');
-      }
-    }
-    if (isset(_eqLogic.configuration.action_alert_life_sign)) {
-      for (var i in _eqLogic.configuration.action_alert_life_sign) {
-        addAction(_eqLogic.configuration.action_alert_life_sign[i], 'action_alert_life_sign');
-      }
-    }
-    if (isset(_eqLogic.configuration.action_desactivate_alert_life_sign)) {
-      for (var i in _eqLogic.configuration.action_desactivate_alert_life_sign) {
-        addAction(_eqLogic.configuration.action_desactivate_alert_life_sign[i], 'action_desactivate_alert_life_sign');
-      }
-    }
-    if (isset(_eqLogic.configuration.alert_bt)) {
-      for (var i in _eqLogic.configuration.alert_bt) {
-        addSensorBtAlert(_eqLogic.configuration.alert_bt[i]);
-      }
-    }
-    if (isset(_eqLogic.configuration.action_alert_bt)) {
-      for (var i in _eqLogic.configuration.action_alert_bt) {
-        addAction(_eqLogic.configuration.action_alert_bt[i], 'action_alert_bt');
-      }
-    }
-    if (isset(_eqLogic.configuration.cancel_alert_bt)) {
-      for (var i in _eqLogic.configuration.cancel_alert_bt) {
-        addSensorCancelBtAlert(_eqLogic.configuration.cancel_alert_bt[i]);
-      }
-    }
-    if (isset(_eqLogic.configuration.action_cancel_alert_bt)) {
-      for (var i in _eqLogic.configuration.action_cancel_alert_bt) {
-        addAction(_eqLogic.configuration.action_cancel_alert_bt[i], 'action_cancel_alert_bt');
-      }
-    }
     if (isset(_eqLogic.configuration.confort)) {
       for (var i in _eqLogic.configuration.confort) {
         addSensorConfort(_eqLogic.configuration.confort[i]);

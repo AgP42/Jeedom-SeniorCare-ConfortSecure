@@ -301,11 +301,10 @@ class seniorcareconfortsecurity extends eqLogic {
                 $cmd->setGeneric_type($sensor['sensor_'.$key.'_type']);
               }
 
-                // commenté car jamais utilisé, on va directement chercher dans la conf. A voir si sa sera utile de le garder en DB un jour... TODO
-          /*    if($key == 'confort'){ // uniquement pour confort
+              if($key == 'confort'){ // uniquement pour confort
 
-                $cmd->setConfiguration('seuilBas', $sensor['seuilBas']);
-                $cmd->setConfiguration('seuilHaut', $sensor['seuilHaut']);
+              //  $cmd->setConfiguration('minValue', $sensor['seuilBas']);
+              //  $cmd->setConfiguration('maxValue', $sensor['seuilHaut']);
                 switch ($sensor['sensor_confort_type']) {
                     case 'temperature':
                         $unit = '°C';
@@ -314,10 +313,10 @@ class seniorcareconfortsecurity extends eqLogic {
                         $unit = '%';
                         break;
                     case 'co2':
-                        $unit = 'ppm'; //Les sondes de CO2 présentent généralement une plage de mesure de 0-5000 ppm. Il faudra recommander dans la doc une alerte à partir de 1000ppm max
+                        $unit = 'ppm';
                         break;
                     default:
-                        $unit = '-'; //TODO
+                        $unit = '-';
                         break;
                 }
                 $cmd->setUnite($unit);
@@ -325,6 +324,8 @@ class seniorcareconfortsecurity extends eqLogic {
               } //*/
 
               $cmd->save();
+
+              log::add('seniorcareconfortsecurity', 'debug', 'apres if update confort : , $sensor[seuilBas] : ' . $sensor['seuilBas'] . ', $cmd->getConfiguration(minValue) : ' . $cmd->getConfiguration('minValue'));
 
               // va chopper la valeur de la commande puis la suivre a chaque changement
               if (is_nan($cmd->execCmd()) || $cmd->execCmd() == '') {
@@ -362,16 +363,14 @@ class seniorcareconfortsecurity extends eqLogic {
           $cmd->setIsHistorized(1);
           $cmd->setConfiguration('historizeMode', 'none');
 
-          if(isset($sensor['sensor_'.$key.'_type'])){ // ce sera vrai pour les types life-sign, confort et security
+          if(isset($sensor['sensor_'.$key.'_type'])){ // ce sera vrai pour les types confort et security, mais pas annulation security
             $cmd->setGeneric_type($sensor['sensor_'.$key.'_type']);
           }
 
           if($key == 'confort'){ // uniquement pour les commandes de types confort
 
-            // commenté car jamais utilisé, on va directement chercher dans la conf. A voir si sa sera utile de le garder en DB un jour... TODO
-            /*
-            $cmd->setConfiguration('seuilBas', $sensor['seuilBas']);
-            $cmd->setConfiguration('seuilHaut', $sensor['seuilHaut']);
+        //    $cmd->setConfiguration('minValue', $sensor['seuilBas']);
+        //    $cmd->setConfiguration('maxValue', $sensor['seuilHaut']);
             switch ($sensor['sensor_confort_type']) {
                 case 'temperature':
                     $unit = '°C';
@@ -386,9 +385,10 @@ class seniorcareconfortsecurity extends eqLogic {
                     $unit = '-'; //TODO
                     break;
             }
-            $cmd->setUnite($unit); //*/
+            $cmd->setUnite($unit);
             $cmd->setConfiguration('historizeMode', 'avg');
             $cmd->setConfiguration('historizeRound', 2);
+            $cmd->setIsVisible(1);
 
           }
 
@@ -476,7 +476,7 @@ class seniorcareconfortsecurity extends eqLogic {
               }
 
               if ($sensor['seuilBas'] >= $sensor['seuilHaut']) {
-                throw new Exception(__('Capteur confort - ' . $sensor['name'] . ', le seuil bas ne peut pas être supérieur ou égal au seuil haut', __FILE__)); // consequence : on peut pas ne definir qu'un seul seuil
+                throw new Exception(__('Capteur confort - ' . $sensor['name'] . ', les seuils doivent être définis et le seuil bas ne peut pas être supérieur ou égal au seuil haut', __FILE__)); // consequence : on peut pas ne definir qu'un seul seuil
               }
 
             }

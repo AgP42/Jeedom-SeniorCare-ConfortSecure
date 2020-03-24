@@ -6,4 +6,5 @@ Beta
 
 * Gestion des capteurs de confort
 * Gestion des capteurs Sécurité
+* Création documentation
 

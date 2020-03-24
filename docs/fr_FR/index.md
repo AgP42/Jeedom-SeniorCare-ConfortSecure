@@ -23,9 +23,7 @@ Merci de l'utiliser en tant que tel et de ne pas prendre de risque pour la sant�
 Changelog
 ==========
 
-Ce plugin est en cours de développement, toutes les fonctions ne sont pas encore codées, certaines n'ont été que partiellement testées.
-
-Beta 0.0.1 - 22 mars 2020
+Beta 0.0.1 - 24 mars 2020
 ---
 
 * Gestion des capteurs de confort
@@ -40,9 +38,12 @@ Ajouter les différentes personnes à suivre, puis pour chacune configurer les d
 Onglet Général
 ---
 * Indiquer le nom de la personne
-* "Objet parent" : il s'agit de l'objet Jeedom auquel rattacher la personne. Il doit etre différent de "Aucun"
-* Activer la personne
-* Visible sert a visualiser les infos sur le dashboard
+* "Objet parent" : il s'agit de l'objet Jeedom auquel rattacher la personne. Il doit être différent de "Aucun"
+* Activer le plugin pour cette personne
+* Visible sert a visualiser les infos sur le dashboard :
+
+![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Widget.png)
+(Passer la souris sur la valeur vous donnera sa date de collecte et cliquer dessus affichera son historique)
 
 Onglet **Confort**
 ---
@@ -54,8 +55,8 @@ Vous pouvez aussi suivre la température extérieure.
 * Définir les différents capteurs de confort du logement à suivre. Il peut s'agit de capteurs de température, d'humidité, de CO2 ou de tout autre type.
   * Vous devez donner un nom unique à chacun de vos capteurs. Attention : le changement de nom d'un capteur revient à le supprimer et a en recréer un nouveau, vous perdez donc l'historique associé
   * Sélectionner la commande Jeedom du capteur associé. Attention, chaque capteur ne doit être utilisé qu'une seule fois. Si besoin d'utiliser 2 fois la même source, merci de le dupliquer avec un virtuel.
-  * Définir son type
-  * Définir les seuils haut et bas
+  * Définir son type.
+  * Définir les seuils haut et bas.
 * Définir les actions exécutées pour chaque capteur lors du dépassement de seuil et la gestion voulue pour les répétitions (tant que le capteur est hors seuils)
 * Définir (ou non) les actions qui seront exécutées pour chaque capteur lors du retour dans les seuils aprés un dépassement (exécutées à chaque "retour", pour chaque capteur)
 * Définir (ou non) les actions à exécuter lorsque tous les capteurs ont leurs valeurs dans les seuils définis
@@ -76,7 +77,7 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * #high_threshold# : seuil haut défini
   * #unit# : unité correspondant à la valeur
 
-![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Confort.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Confort.png)
 
 Onglet **Sécurité**
 ---
@@ -92,11 +93,16 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * #sensor_name# : nom du capteur ayant déclenché l'alerte (uniquement pour l'alerte et non pour l'annulation d'alerte)
   * #sensor_type# : type de ce capteur - attention, le type sera donné en anglais
 
-![](https://raw.githubusercontent.com/AgP42/seniorcare/dev/docs/assets/images/Securite.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Securite.png)
 
 
 Onglet **Avancé - Commandes Jeedom**
 ---
+
+Vous pouvez visualiser dans cet onglet les différentes commandes crées par ce plugin et les configurer
+
+![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/OngletCommandes.png)
+
 
 Comportement au démarrage et après redémarrage Jeedom
 ======

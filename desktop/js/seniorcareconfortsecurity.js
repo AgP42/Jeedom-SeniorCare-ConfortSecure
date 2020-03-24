@@ -16,7 +16,7 @@
  */
 
 // permet de reorganiser les elements de la div en les cliquant/deplacant
-/* // commenté pour debug, c'est insupportable sur un écran de smartphone...
+ // commenté pour debug, c'est insupportable sur un écran de smartphone...
 $("#div_confort").sortable({axis: "y", cursor: "move", items: ".confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_cancel_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_cancel_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -356,7 +356,7 @@ function addCmdToTable(_cmd) {
     tr += '</td>';
 
     tr += '<td>';
-    tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>';
+    tr += '<span class="type" type="' + init(_cmd.type) + '">' + jeedom.cmd.availableType() + '</span>'; // NE PAS SUPPRIMER !!! Sinon le $cmd->remove() de la class deconne... trop bizarre...
     tr += '<span class="subType" subType="' + init(_cmd.subType) + '"></span>';
     tr += '</td>';
 
@@ -366,8 +366,9 @@ function addCmdToTable(_cmd) {
 //    tr += '<span><label class="checkbox-inline"><input type="checkbox" class="cmdAttr checkbox-inline" data-l1key="configuration data-l2key="timeline::enable"/>{{Suivre dans la timeline}}</label></span> ';
     tr += '</td>';
 
+// Attention, soit met les champs à disposition ici, soit on les gere dans la class au moment du postSave, mais pas les 2 ! Sinon ils se perturbent (js (vieille valeur) écrase la postSave)
     tr += '<td>';
-    tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}">';
+//    tr += '<input class="cmdAttr form-control input-sm" data-l1key="unite" placeholder="Unité" title="{{Unité}}">';
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="minValue" placeholder="{{Min}}" title="{{Min}}" style="margin-top : 5px;"> ';
     tr += '<input class="cmdAttr form-control input-sm" data-l1key="configuration" data-l2key="maxValue" placeholder="{{Max}}" title="{{Max}}" style="margin-top : 5px;">';
 

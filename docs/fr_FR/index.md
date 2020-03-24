@@ -5,9 +5,9 @@ Ce plugin fait parti d'un ensemble de plugins pour Jeedom permettant l'aide au m
 
 La demande initiale vient de ce sujet sur le forum : [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111).
 
-Ce plugin permet la gestion de :
-* Gestion de boutons d’alertes
-* Surveillance du confort (température, humidité, CO2, …)
+Ce plugin permet :
+* la surveillance du confort du logement (température, humidité, CO2, …)
+* de générer des alertes de sécurité
 
 Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcare-confort-security/)
 

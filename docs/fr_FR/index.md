@@ -26,6 +26,8 @@ Changelog
 Beta 0.0.1 - 24 mars 2020
 ---
 
+Ce plugin permet :
+
 * Gestion des capteurs de confort
 * Gestion des capteurs Sécurité
 * Création documentation
@@ -40,7 +42,7 @@ Onglet Général
 * Indiquer le nom de la personne
 * "Objet parent" : il s'agit de l'objet Jeedom auquel rattacher la personne. Il doit être différent de "Aucun"
 * Activer le plugin pour cette personne
-* Visible sert a visualiser les infos sur le dashboard :
+* Visible sert a visualiser les infos sur le dashboard
 
 ![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Widget.png)
 (Passer la souris sur la valeur vous donnera sa date de collecte et cliquer dessus affichera son historique)
@@ -53,8 +55,8 @@ A partir de 1000 ppm (CO2), il est recommandé d'aérer le logement.
 Vous pouvez aussi suivre la température extérieure.
 
 * Définir les différents capteurs de confort du logement à suivre. Il peut s'agit de capteurs de température, d'humidité, de CO2 ou de tout autre type.
-  * Vous devez donner un nom unique à chacun de vos capteurs. Attention : le changement de nom d'un capteur revient à le supprimer et a en recréer un nouveau, vous perdez donc l'historique associé
-  * Sélectionner la commande Jeedom du capteur associé. Attention, chaque capteur ne doit être utilisé qu'une seule fois. Si besoin d'utiliser 2 fois la même source, merci de le dupliquer avec un virtuel.
+  * Vous devez donner un nom unique à chacun de vos capteurs. Attention, le changement de nom d'un capteur revient à le supprimer et a en recréer un nouveau, vous perdez donc l'historique associé.
+  * Sélectionner la commande Jeedom du capteur associé. Attention, chaque capteur ne doit être utilisé qu'une seule fois. En cas de nécessité d'utiliser 2 fois la même source, merci de le dupliquer par un virtuel.
   * Définir son type.
   * Définir les seuils haut et bas.
 * Définir les actions exécutées pour chaque capteur lors du dépassement de seuil et la gestion voulue pour les répétitions (tant que le capteur est hors seuils)
@@ -81,7 +83,7 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
 
 Onglet **Sécurité**
 ---
-Cet onglet permet de regrouper les capteurs d'urgennce du logement de la personne dépendante (détecteur de fumée, alerte fuite de gaz, …) et aussi les actions d'alerte immédiate vers l’extérieur au cas où la personne ne peut déjà plus agir.
+Cet onglet permet de regrouper les capteurs d'urgence du logement de la personne dépendante (fumée, fuite de gaz, inondation, …) ainsi que les actions d'alerte immédiate vers l’extérieur au cas où la personne ne peut intervenir.
 
 * Définir un ou plusieurs capteurs de sécurité. L'alerte sera déclenchée à chaque changement d'état du capteur, peu importe le sens du changement d'état
 * Définir les actions immédiatement réalisées à l'activation de n'importe lequel de ces capteurs
@@ -119,5 +121,4 @@ Remarques générales
 ===
 * Pour les capteurs "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte !
 * Pour les capteurs conforts, leur valeur est évaluée toutes les 15 min et non à chaque changement
-* L'ensemble des capteurs définis dans le plugin doivent posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau. De fait, la totalité de l'historique associé à ce capteur sera donc perdu.
-
+* L'ensemble des capteurs définis dans le plugin doit posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau. De fait, la totalité de l'historique associé à ce capteur sera donc perdue.

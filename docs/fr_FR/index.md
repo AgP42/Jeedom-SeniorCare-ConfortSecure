@@ -83,7 +83,7 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
 
 Onglet **Sécurité**
 ---
-Cet onglet permet de regrouper les capteurs d'urgennce du logement de la personne dépendante (fumée, fuite de gaz, inondation, …) et aussi les actions d'alerte immédiate vers l’extérieur au cas où la personne ne peut intervenir.
+Cet onglet permet de regrouper les capteurs d'urgence du logement de la personne dépendante (fumée, fuite de gaz, inondation, …) ainsi que les actions d'alerte immédiate vers l’extérieur au cas où la personne ne peut intervenir.
 
 * Définir un ou plusieurs capteurs de sécurité. L'alerte sera déclenchée à chaque changement d'état du capteur, peu importe le sens du changement d'état
 * Définir les actions immédiatement réalisées à l'activation de n'importe lequel de ces capteurs

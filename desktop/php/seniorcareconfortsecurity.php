@@ -182,7 +182,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
     <div class="tab-pane" id="securitytab">
       <br/>
       <div class="alert alert-info">
-        {{Onglet de configuration des capteurs à déclenchement immédiat du logement ainsi que des actions associées à réaliser}}
+        {{Onglet de configuration des capteurs de sécurité ainsi que des actions à réaliser en cas de déclenchement}}
       </div>
 
       <form class="form-horizontal">
@@ -211,7 +211,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
       <form class="form-horizontal">
         <fieldset>
-        <legend><i class="fas fa-toggle-off"></i> {{Boutons d'annulation d'alerte (quel actionneur pour couper l'alerte ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Bouton de désactivation de l'alerte}}"></i></sup>
+          <legend><i class="fas fa-toggle-off"></i> {{Boutons d'annulation d'alerte (quel actionneur pour couper l'alerte ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Bouton de désactivation de l'alerte}}"></i></sup>
             <a class="btn btn-success btn-sm addSensorCancelSecurity" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un bouton}}</a>
           </legend>
           <div id="div_cancel_security"></div>

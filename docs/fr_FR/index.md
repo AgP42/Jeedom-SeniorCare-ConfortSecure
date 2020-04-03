@@ -45,10 +45,11 @@ Onglet **Général**
    * Visible sert a visualiser les infos des capteurs sur le dashboard :
 
 ![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Widget.png)
+
 (Passer la souris sur la valeur vous donnera sa date de collecte et cliquer dessus affichera son historique)
 
 * **Informations concernant la personne dépendante**
-Vous pouvez saisir ici des informations sur la personne dépendante. Ces informations seront utilisées uniquement pour la saisie de tags dans les messages d'alertes, tous ces champs sont facultatifs.
+Vous pouvez saisir ici des informations sur la personne dépendante. Ces informations seront utilisées uniquement pour la saisie de tags dans les messages, tous ces champs sont facultatifs.
 
 Onglet **Confort**
 ---
@@ -98,23 +99,27 @@ Onglet **Sécurité**
 
 Cet onglet permet de définir les capteurs de sécurité du logement de la personne dépendante (fumée, fuite de gaz, inondation, …) ainsi que les actions d'alerte à exécuter immédiatement.
 
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Securite.png)
+
+### Configuration
+
 * Définir un ou plusieurs capteurs de sécurité. L'alerte sera déclenchée à chaque changement d'état du capteur, peu importe le sens du changement d'état
 * Définir les actions immédiatement réalisées à l'activation de n'importe lequel de ces capteurs
 * Définir un ou plusieurs capteurs de type "bouton" ou "interrupteur" servant à annuler l'alerte
 * Définir les actions réalisées à l'activation des capteurs d'annulation
+
+### Tags
 
 Si l'une de vos action est de type "message", vous pouvez utiliser les tags suivants :
   * Tous les tags configuré dans l'onglet "Général" : #senior_name#, #senior_phone#, #senior_address#, #trusted_person_name#, #trusted_person_phone#
   * #sensor_name# : nom du capteur ayant déclenché l'alerte (uniquement pour les actions d'alerte et non annulation d'alerte)
   * #sensor_type# : type de ce capteur - attention, le type sera donné en anglais (uniquement pour les actions d'alerte et non annulation d'alerte)
 
-![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Securite.png)
-
 
 Onglet **Avancé - Commandes Jeedom**
 ---
 
-Vous pouvez visualiser dans cet onglet les différentes commandes crées par ce plugin et les configurer
+Vous pouvez visualiser dans cet onglet les différentes commandes créées par ce plugin et les configurer
 
 ![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/OngletCommandes.png)
 
@@ -132,6 +137,12 @@ RAS
 
 Remarques générales
 ===
-* Pour les capteurs "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte !
+* Pour les capteurs "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte
 * Pour les capteurs conforts, leur valeur est évaluée toutes les 15 min et non à chaque changement
-* L'ensemble des capteurs définis dans le plugin doit posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau, l'historique associé à ce capteur est alors perdu.
+* Chaque capteur définis dans le plugin doit posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau, l'historique associé à ce capteur est alors perdu.
+
+Support
+===
+
+* Pour toute demande de support ou d'information : [Forum Jeedom](https://community.jeedom.com/c/plugins/security/86)
+* Pour un bug ou une demande d'évolution, merci de passer de préférence par [Github](https://github.com/AgP42/seniorcarecomfortsecurity/issues)

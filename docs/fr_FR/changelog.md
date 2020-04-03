@@ -13,3 +13,5 @@ Beta
 
 * Changement logicalId
 * Update pour mise en cohérance avec les autres plugins SeniorCare
+* Ajout des tags onglet Général
+* Mise à jour documentation

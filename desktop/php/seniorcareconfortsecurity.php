@@ -122,8 +122,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
       <form class="form-horizontal">
         <fieldset>
-          <legend><i class="fas fa-spa"></i> {{Capteurs confort}} <sup><i class="fas fa-question-circle tooltips" title="{{Capteurs de déclenchement d'alerte en cas de sortie des seuils définis.
-          Des seuils vides permettent un suivi sans génération d'alertes.}}"></i></sup>
+          <legend><i class="fas fa-spa"></i> {{Capteurs confort}} <sup><i class="fas fa-question-circle tooltips" title="{{Capteurs de déclenchement d'alerte en cas de sortie des seuils définis.}}"></i></sup>
             <a class="btn btn-success btn-sm addSensorConfort" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un capteur}}</a>
           </legend>
           <div id="div_confort"></div>

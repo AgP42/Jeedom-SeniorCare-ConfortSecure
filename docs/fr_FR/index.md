@@ -9,7 +9,7 @@ Ce plugin permet :
 * la surveillance du confort du logement (température, humidité, CO2, …)
 * de générer des alertes de sécurité
 
-Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcare-confort-security/)
+Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcareconfortsecurity/)
 
 Si vous souhaitez participer au projet, n’hésitez pas à le faire savoir ici [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111/2)
 

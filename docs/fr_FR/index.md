@@ -9,7 +9,7 @@ Ce plugin permet :
 * la surveillance du confort du logement (température, humidité, CO2, …)
 * de générer des alertes de sécurité
 
-Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcareconfortsecurity/)
+Lien vers le code source : [https://github.com/AgP42/seniorcare/](https://github.com/AgP42/seniorcarecomfortsecurity/)
 
 Si vous souhaitez participer au projet, n’hésitez pas à le faire savoir ici [Développer un logiciel d’Analyse comportementale](https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111/2)
 
@@ -44,7 +44,7 @@ Onglet Général
 * Activer le plugin pour cette personne
 * Visible sert a visualiser les infos sur le dashboard
 
-![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Widget.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Widget.png)
 (Passer la souris sur la valeur vous donnera sa date de collecte et cliquer dessus affichera son historique)
 
 Onglet **Confort**
@@ -79,7 +79,7 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * #high_threshold# : seuil haut défini
   * #unit# : unité correspondant à la valeur
 
-![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Confort.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Confort.png)
 
 Onglet **Sécurité**
 ---
@@ -95,7 +95,7 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * #sensor_name# : nom du capteur ayant déclenché l'alerte (uniquement pour l'alerte et non pour l'annulation d'alerte)
   * #sensor_type# : type de ce capteur - attention, le type sera donné en anglais
 
-![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/Securite.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Securite.png)
 
 
 Onglet **Avancé - Commandes Jeedom**
@@ -103,7 +103,7 @@ Onglet **Avancé - Commandes Jeedom**
 
 Vous pouvez visualiser dans cet onglet les différentes commandes crées par ce plugin et les configurer
 
-![](https://raw.githubusercontent.com/AgP42/seniorcareconfortsecurity/master/docs/assets/images/OngletCommandes.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/OngletCommandes.png)
 
 
 Comportement au démarrage et après redémarrage Jeedom

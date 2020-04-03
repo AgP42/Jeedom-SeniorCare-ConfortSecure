@@ -18,16 +18,16 @@
 
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
-function seniorcareconfortsecurity_install() {
+function seniorcarecomfortsecurity_install() {
 
 }
 
-function seniorcareconfortsecurity_update() {
+function seniorcarecomfortsecurity_update() {
 
 }
 
 
-function seniorcareconfortsecurity_remove() {
+function seniorcarecomfortsecurity_remove() {
 
 }
 

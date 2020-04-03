@@ -1,5 +1,5 @@
 {
-	"id" : "seniorcareconfortsecurity",
+	"id" : "seniorcarecomfortsecurity",
 	"name" : "Senior Care - Confort et Sécurité",
   "description" : "Plugin pour l'assistance aux personnes âgées - Gestion du confort et de la sécurité du logement",
   "licence" : "AGPL",
@@ -9,8 +9,8 @@
   "hasDependency" : false,
   "hasOwnDeamon" : false,
   "maxDependancyInstallTime" : 0,
-  "changelog" : "https://agp42.github.io/seniorcareconfortsecurity/#language#/changelog",
-  "documentation" : "https://agp42.github.io/seniorcareconfortsecurity/#language#/",
+  "changelog" : "https://agp42.github.io/seniorcarecomfortsecurity/#language#/changelog",
+  "documentation" : "https://agp42.github.io/seniorcarecomfortsecurity/#language#/",
   "link" : {
     "forum":"https://community.jeedom.com/t/developper-un-logiciel-danalyse-comportementale/19111",
     "video" : "Lien vers une video"

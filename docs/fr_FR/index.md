@@ -89,21 +89,20 @@ Détails de fonctionnement :
 * Toutes les 15 min, Jeedom évaluera pour chacun des capteurs si sa valeur est dans les seuils définis ou non
 * Les actions "Actions avertissement (pour chaque capteur hors seuils, je dois ?)" seront alors exécutées pour chaque capteur hors seuils sauf si l'avertissement a déjà été donné pour ce capteur et que l’utilisateur a choisi de ne pas le répéter
 * Lorsqu'un capteur précédemment hors seuil revient dans ses bornes, les actions "Actions arrêt l'avertissement - pour chaque capteur de retour dans les seuils, je dois ?" seront alors exécutées pour ce capteur
-* Si tous les capteurs sont évalués "dans les seuils", les actions "Actions arrêt l'avertissement - lorsque tous les capteurs sont dans les seuils, je dois ?" seront alors exécutées
+* Si tous les capteurs sont évalués "dans les seuils", les actions "Actions arrêt l'avertissement - lorsque tous les capteurs sont dans les seuils, je dois ?" seront alors exécutées. Ces actions seront exécutées toutes les 15 min si tous les capteurs restent dans leurs seuils.
 
-La gestion de la répétition pour les actions d'avertissement permet de limiter la fréquence des messages reçus, par capteur. Ainsi si vous avez 4 capteurs et définissez une gestion de répétition toutes les 6 heures, vous recevrez au maximum 4 alertes toutes les 6 heures. Ceci est remis à 0 à chaque fois que le capteur considéré revient dans ses seuils.
-
+La gestion de la répétition pour les actions d'avertissement permet de limiter la fréquence des messages reçus, par capteur. Ainsi si vous avez 4 capteurs et définissez une gestion de répétition toutes les 6 heures, vous recevrez au maximum 4 alertes toutes les 6 heures. Ceci est remis à 0 à chaque fois que le capteur considéré revient dans ses seuils. Donc pour un capteur oscillant autour d'un seuil, il est possible de recevoir une alerte toutes les 15 min quelque soit la répétition choisie.
 
 Onglet **Sécurité**
 ---
 
 Cet onglet permet de définir les capteurs de sécurité du logement de la personne dépendante (fumée, fuite de gaz, inondation, …) ainsi que les actions d'alerte à exécuter immédiatement.
 
-![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/Securite.png)
+![](https://raw.githubusercontent.com/AgP42/seniorcarecomfortsecurity/master/docs/assets/images/OngletSecurite.png)
 
 ### Configuration
 
-* Définir un ou plusieurs capteurs de sécurité. L'alerte sera déclenchée à chaque changement d'état du capteur, peu importe le sens du changement d'état
+* Définir un ou plusieurs capteurs de sécurité. L'alerte sera déclenchée lorsque le capteur passera de l'état 0 à l'état 1. Ou l'inverse si vous cochez la case "Inverser". Vous pouvez activer les logs en mode "Info" et tester vos capteurs pour vous assurer de la bonne prise en compte.
 * Définir les actions immédiatement réalisées à l'activation de n'importe lequel de ces capteurs
 * Définir un ou plusieurs capteurs de type "bouton" ou "interrupteur" servant à annuler l'alerte
 * Définir les actions réalisées à l'activation des capteurs d'annulation
@@ -114,7 +113,6 @@ Si l'une de vos action est de type "message", vous pouvez utiliser les tags suiv
   * Tous les tags configuré dans l'onglet "Général" : #senior_name#, #senior_phone#, #senior_address#, #trusted_person_name#, #trusted_person_phone#
   * #sensor_name# : nom du capteur ayant déclenché l'alerte (uniquement pour les actions d'alerte et non annulation d'alerte)
   * #sensor_type# : type de ce capteur - attention, le type sera donné en anglais (uniquement pour les actions d'alerte et non annulation d'alerte)
-
 
 Onglet **Avancé - Commandes Jeedom**
 ---
@@ -137,8 +135,9 @@ RAS
 
 Remarques générales
 ===
-* Pour les capteurs "capteur de sécurité" et "bouton d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte
-* Pour les capteurs conforts, leur valeur est évaluée toutes les 15 min et non à chaque changement
+* Pour les "boutons d'annulation d'alerte de sécurité", c'est le changement de valeur du capteur qui est détecté et déclenche les actions, la valeur en elle-même n'est pas prise en compte. Si le bouton répète constamment la même valeur, il sera considéré à chaque fois.
+* Pour les capteurs de "sécurité", l'alerte n'est déclenché qu'au 1er passage de la valeur 0 à 1 (ou inversement si la case "Inverser" est cochée).
+* Pour les capteurs "conforts", leur valeur est évaluée toutes les 15 min et non à chaque changement
 * Chaque capteur définis dans le plugin doit posséder un nom unique. Le changement de nom d'un capteur revient à le supprimer et à en créer un nouveau, l'historique associé à ce capteur est alors perdu.
 
 Support

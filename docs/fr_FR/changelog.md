@@ -11,7 +11,8 @@ Beta
 0.0.2 - 3 avril 2020
 ---
 
-* Changement logicalId
-* Update pour mise en cohérance avec les autres plugins SeniorCare
-* Ajout des tags onglet Général
+* Changement logicalId (seniorcareconfortsecurity -> seniorcarecomfortsecurity)
+* Mise en cohérance avec les autres plugins SeniorCare, notamment ajout des tags onglet Général et changement icône
+* Pour les capteurs sécurité : ils ne déclenchent maintenant que sur le 1er front montant (ou descendant si "Inverser" est coché dans la conf)
+* Ajouts des logs "Info" pour confort et sécurité
 * Mise à jour documentation

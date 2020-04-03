@@ -220,7 +220,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
       <form class="form-horizontal">
         <fieldset>
-        <legend><i class="fas fa-exclamation-triangle"></i> {{Capteurs de Sécurité}} <sup><i class="fas fa-question-circle tooltips" title="{{Capteurs déclenchant une alerte de sécurité immédiate sur chaque activation}}"></i></sup>
+        <legend><i class="fas fa-exclamation-triangle"></i> {{Capteurs de Sécurité}} <!-- <sup><i class="fas fa-question-circle tooltips" title="{{Capteurs déclenchant une alerte de sécurité immédiate sur chaque activation}}"></i></sup> -->
             <a class="btn btn-success btn-sm addSensorSecurity" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter un capteur}}</a>
           </legend>
           <div id="div_security"></div>

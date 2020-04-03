@@ -16,7 +16,6 @@
  */
 
 // permet de reorganiser les elements de la div en les cliquant/deplacant
- // commenté pour debug, c'est insupportable sur un écran de smartphone...
 $("#div_confort").sortable({axis: "y", cursor: "move", items: ".confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
 $("#div_action_cancel_warning_confort").sortable({axis: "y", cursor: "move", items: ".action_cancel_warning_confort", placeholder: "ui-state-highlight", tolerance: "intersect", forcePlaceholderSize: true});
@@ -55,7 +54,6 @@ $("body").off('click','.bt_removeAction').on('click','.bt_removeAction',function
 });
 
 // permet d'afficher la liste des cmd Jeedom pour choisir sa commande de type "info" (pas les actions donc)
-// TODO ce morceau de code est un copier/coller du plugin thermostat, a voir s'il n'y a pas des trucs inutiles là-dedans
 $("body").off('click', '.listCmdInfoWindow').on('click', '.listCmdInfoWindow',function () {
   var el = $(this).closest('.form-group').find('.expressionAttr[data-l1key=cmd]');
   jeedom.cmd.getSelectModal({cmd: {type: 'info', subtype: 'binary'}}, function (result) {
@@ -64,7 +62,6 @@ $("body").off('click', '.listCmdInfoWindow').on('click', '.listCmdInfoWindow',fu
 });
 
 // affiche les cmd jeedom de type action
-// TODO ce morceau de code est un copier/coller du plugin thermostat, a voir s'il n'y a pas des trucs inutiles là-dedans
 $("body").off('click','.listCmdAction').on('click','.listCmdAction', function () {
   var type = $(this).attr('data-type');
   var el = $(this).closest('.' + type).find('.expressionAttr[data-l1key=cmd]');
@@ -77,7 +74,7 @@ $("body").off('click','.listCmdAction').on('click','.listCmdAction', function ()
   });
 });
 
-// copier/coller du core (cmd.configure.php), permet de choisir la liste des actions (scenario, attendre, ...)
+// permet de choisir la liste des actions (scenario, attendre, ...)
 $("body").undelegate(".listAction", 'click').delegate(".listAction", 'click', function () {
   var type = $(this).attr('data-type');
   var el = $(this).closest('.' + type).find('.expressionAttr[data-l1key=cmd]');
@@ -90,7 +87,7 @@ $("body").undelegate(".listAction", 'click').delegate(".listAction", 'click', fu
   });
 });
 
-// TODO ce morceau de code est un copier/coller du plugin thermostat, a voir s'il n'y a pas des trucs inutiles là-edans
+// TODO ce morceau de code est un copier/coller du plugin thermostat, a voir s'il n'y a pas des trucs inutiles là-dedans => A  priori ne sert effectivement a rien...
 $('body').off('focusout','.cmdAction.expressionAttr[data-l1key=cmd]').on('focusout','.cmdAction.expressionAttr[data-l1key=cmd]',function (event) {
   var type = $(this).attr('data-type');
   var expression = $(this).closest('.' + type).getValues('.expressionAttr');
@@ -187,6 +184,10 @@ function addSensorSecurity(_info) {
           div += '<option value="gaz">Gaz</option>';
           div += '<option value="other">Divers</option>';
         div += '</select>';
+      div += '</div>';
+
+      div += '<div class="col-sm-1">';
+        div += '<label class="checkbox-inline"><input type="checkbox" class="expressionAttr cmdInfo" data-l1key="invert"/>{{Inverser}} <sup><i class="fas fa-question-circle tooltips" title="{{Si votre capteur déclenche une alerte en passant de 1 à 0}}"></i></sup></label></span>';
       div += '</div>';
 
     div += '</div>';

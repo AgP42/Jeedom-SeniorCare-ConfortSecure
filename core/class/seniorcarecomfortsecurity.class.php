@@ -27,23 +27,46 @@ class seniorcarecomfortsecurity extends eqLogic {
     /*     * ***********************Methode static*************************** */
 
     public static function sensorSecurity($_option) { // fct appelée par le listener des capteurs de sécurité, n'importe quel capteur arrive ici
-      log::add('seniorcarecomfortsecurity', 'debug', '################ Detection d\'un trigger de sécurité ############');
+
 
       $seniorcarecomfortsecurity = seniorcarecomfortsecurity::byId($_option['seniorcarecomfortsecurity_id']); // on cherche la personne correspondant au bouton d'alerte
+
+      // on cherche quel est l'event qui nous a déclenché pour pouvoir chopper son nom et type (utilisé pour les tags) et sa valeur (pour gestion de la repetition)
       foreach ($seniorcarecomfortsecurity->getConfiguration('security') as $security) { // on boucle direct dans la conf
-        if ('#' . $_option['event_id'] . '#' == $security['cmd']) { // on cherche quel est l'event qui nous a déclenché pour pouvoir chopper son nom et type (utilisé pour les tags)
+        if ('#' . $_option['event_id'] . '#' == $security['cmd']) {
 
-          log::add('seniorcarecomfortsecurity', 'debug', 'boucle capteurs security, name : ' . $security['name'] . ' - cmd : ' . $security['cmd']  . ' - ' . $security['sensor_security_type']);
-          $seniorcarecomfortsecurity->execActions('action_security', $security['name'], $security['sensor_security_type']); // on appelle les actions definies pour cette personne
+          log::add('seniorcarecomfortsecurity', 'debug', $seniorcarecomfortsecurity->getHumanName() . '################ Detection d\'un trigger de sécurité ############ - nom : ' . $security['name'] . ' - cmd : ' . $security['cmd']  . ' - type : ' . $security['sensor_security_type'] . ' - valeur : ' . $_option['value']);
 
-        }
+          if ($seniorcarecomfortsecurity->getCache('sensor_' . $_option['event_id']) != $_option['value']){ // si notre valeur a changé, donc n'est pas une répétition
+
+            if (isset($security['invert']) && $security['invert'] == 1) { // si la case "inverser" est cochée, on inverse la valeur
+              $_option['value'] = ($_option['value'] == 0) ? 1 : 0;
+            }
+
+            if ($_option['value'] == 1) {
+
+              log::add('seniorcarecomfortsecurity', 'info', $seniorcarecomfortsecurity->getHumanName() . ' - Capteurs securité à prendre en compte, nom : ' . $security['name'] . ' - cmd : ' . $security['cmd']  . ' - type : ' . $security['sensor_security_type']);
+
+              $seniorcarecomfortsecurity->execActions('action_security', $security['name'], $security['sensor_security_type']); // on appelle les actions definies pour cette personne
+
+            }
+
+          } // fin if notre valeur est nouvelle
+
+          $seniorcarecomfortsecurity->setCache('sensor_' . $_option['event_id'], $_option['value']); //on garde en cache la valeur actuelle du capteur
+          log::add('seniorcarecomfortsecurity', 'debug', $seniorcarecomfortsecurity->getHumanName() . ' - cache *sensor_' . $_option['event_id'] . '* : ' . $seniorcarecomfortsecurity->getCache('sensor_' . $_option['event_id']));
+
+        } // fin if on est sur le capteur qui nous a déclenché
       } // fin foreach tous les capteurs security de la conf
-    }
+    } // fin de la fonction appellée par le listener
 
-    public static function sensorSecurityCancel($_option) { // fct appelée par le listener des boutons d'annulation de l'alerte de sécurité, n'importe quel capteur arrive ici
-      log::add('seniorcarecomfortsecurity', 'debug', '################ Detection d\'un bouton d\'annulation d\'alerte de sécurité ############');
+    public static function sensorSecurityCancel($_option) { // fct appelée par le listener des boutons d'annulation de l'alerte de sécurité, n'importe quel bouton arrive ici
+
 
       $seniorcarecomfortsecurity = seniorcarecomfortsecurity::byId($_option['seniorcarecomfortsecurity_id']); // on cherche la personne correspondant au bouton d'alerte
+  //    log::add('seniorcarecomfortsecurity', 'debug', '################ Detection d\'un bouton d\'annulation d\'alerte de sécurité ############');
+      log::add('seniorcarecomfortsecurity', 'info', $seniorcarecomfortsecurity->getHumanName() . ' - Bouton annulation de l\'alerte de sécurité détecté');
+
       $seniorcarecomfortsecurity->execActions('action_cancel_security'); // on appelle les actions definies pour cette personne
 
     }
@@ -75,10 +98,10 @@ class seniorcarecomfortsecurity extends eqLogic {
 
       } else if (($valeur <= $_seuilHaut && $valeur >= $_seuilBas) && $warningConfortLauched){ // on est dans les seuils et on a précédemment lancé notre warning => actions de retour à la normal
 
-        log::add('seniorcarecomfortsecurity', 'debug', 'Capteurs confort :' . $_name . ' retour à la normal !');
+        log::add('seniorcarecomfortsecurity', 'info', $seniorcarecomfortsecurity->getHumanName() . ' - Capteur confort : '. $_type . ' - ' . $_name . ' de retour dans les seuils - valeur : ' . $valeur . ' - seuils : ' . $_seuilBas . ' - ' . $_seuilHaut);
         $seniorcarecomfortsecurity->setCache('WarningConfortLauched' . $_cmd, false); // on remet dans le cache qu'on a pas lancé les actions
         $seniorcarecomfortsecurity->execActions('action_cancel_warning_confort', $_name, $_type, $valeur, $_seuilBas, $_seuilHaut); // appel de la boucle d'execution des actions avec les infos pour les tag des messages
-        return 1;
+        return 1; // on retourne que notre capteur est ok dans les seuils
 
       } else if (($valeur > $_seuilHaut || $valeur < $_seuilBas) && // si la valeur sort des seuils et selon le choix de repetition
          ($rep_warning == '' ||
@@ -88,7 +111,7 @@ class seniorcarecomfortsecurity extends eqLogic {
          ($rep_warning == '6hours' && $tempsDepuisActionWarningConfort >= 60*59*6) // rep_warning sur 6h et dernier lancement depuis 6h-6min
         )){
 
-        log::add('seniorcarecomfortsecurity', 'debug', 'Capteurs confort :' . $_name . ' est hors seuils, tempsDepuisActionWarningConfort : ' . $tempsDepuisActionWarningConfort . ' warningConfortLauched : ' . $warningConfortLauched . ' rep_warning : ' . $rep_warning);
+        log::add('seniorcarecomfortsecurity', 'info', $seniorcarecomfortsecurity->getHumanName() . ' - Capteur confort : '. $_type . ' - ' . $_name . ' est hors seuils - valeur : ' . $valeur . ' - seuils : ' . $_seuilBas . ' - ' . $_seuilHaut . ', temps depuis le lancement de la précédente alerte : ' . $tempsDepuisActionWarningConfort/60 . 'min, alerte déjà lancée : ' . $warningConfortLauched . ' répétition voulue : ' . $rep_warning);
 
         $seniorcarecomfortsecurity->setCache('WarningConfortLauched' . $_cmd, true); // on garde en cache qu'on a lancé nos actions au moins 1 fois pour cette commande
         $seniorcarecomfortsecurity->setCache('actionWarningConfortStartTimestamp' . $_cmd, $now); // on memorise l'heure du lancement du warning
@@ -150,9 +173,10 @@ class seniorcarecomfortsecurity extends eqLogic {
 
               if($confort['seuilBas'] != '' || $confort['seuilHaut'] != '') { // évalue si on a au moins 1 seuil defini (de toute facon on peut pas n'en remplir qu'1 des deux)
 
-                $etatSensor *= $seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']);
-                log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, etatSensor : ' . $etatSensor);
+                $etatSensor *= $seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']); // on appelle la fct d'évaluation et on fait le produit du retour de chacun
                 // il suffit qu'il y ai 1 capteur qui renvoie 0 pour que notre $etatSensor passe a 0
+
+                log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, etatSensor : ' . $etatSensor);
               }
 
             } // fin foreach tous les capteurs conforts de la conf
@@ -186,7 +210,7 @@ class seniorcarecomfortsecurity extends eqLogic {
 
     public function execActions($_config, $_sensor_name = NULL, $_sensor_type = NULL, $_sensor_value = NULL, $_seuilBas = NULL, $_seuilHaut = NULL) { // on donne le type d'action en argument et ca nous execute toute la liste. Les autres arguments sont pour les tag des messages si applicable
 
-      log::add('seniorcarecomfortsecurity', 'debug', '################ Execution des actions du type ' . $_config . ' pour ' . $this->getName() .  ' ############');
+      log::add('seniorcarecomfortsecurity', 'info', $this->getHumanName() . ' - ################ Execution des actions du type ' . $_config . ' pour ' . $this->getName() .  ' ############');
 
       foreach ($this->getConfiguration($_config) as $action) { // on boucle pour executer toutes les actions définies
         try {

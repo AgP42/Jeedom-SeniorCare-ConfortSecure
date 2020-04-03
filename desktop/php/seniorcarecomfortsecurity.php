@@ -23,7 +23,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <span>{{Configuration}}</span>
     </div>
     </div>
-    <legend><i class="fas fa-table"></i> {{Personne dépendante}}</legend>
+    <legend><i class="fas fa-user-plus"></i> {{Personne dépendante}}</legend>
   	   <input class="form-control" placeholder="{{Rechercher}}" id="in_searchEqlogic" />
   <div class="eqLogicThumbnailContainer">
       <?php
@@ -64,11 +64,12 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <br/>
       <form class="form-horizontal">
         <fieldset>
+          <legend><i class="fas fa-tachometer-alt"></i> {{Informations Jeedom}} </legend>
           <div class="form-group">
-            <label class="col-sm-3 control-label">{{Nom de la personne dépendante}}</label>
+            <label class="col-sm-3 control-label">{{Nom Jeedom}}</label>
             <div class="col-sm-3">
               <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-              <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom de la personne dépendante}}"/>
+              <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom }}"/>
             </div>
           </div>
           <div class="form-group">
@@ -78,39 +79,72 @@ $eqLogics = eqLogic::byType($plugin->getId());
                 <option value="">{{Aucun}}</option>
                 <?php
                   foreach (jeeObject::all() as $object) {
-  	                echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
+                    echo '<option value="' . $object->getId() . '">' . $object->getName() . '</option>';
                   }
                 ?>
               </select>
             </div>
           </div>
-  	   <!--div class="form-group">
-                  <label class="col-sm-3 control-label">{{Catégorie}}</label>
-                  <div class="col-sm-9">
-                   <?php
-                    //  foreach (jeedom::getConfiguration('eqLogic:category') as $key => $value) {
-                    //  echo '<label class="checkbox-inline">';
-                    //  echo '<input type="checkbox" class="eqLogicAttr" data-l1key="category" data-l2key="' . $key . '" />' . $value['name'];
-                    //  echo '</label>';
-                    //  }
-                    ?>
-                 </div>
-             </div-->
-        	<div class="form-group">
-        		<label class="col-sm-3 control-label"></label>
-        		<div class="col-sm-9">
-        			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
-        			<label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
-        		</div>
-        	</div>
-         <!--div class="form-group">
-          <label class="col-sm-3 control-label">{{template param 1}}</label>
-          <div class="col-sm-3">
-              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="city" placeholder="param1"/>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label"></label>
+            <div class="col-sm-9">
+              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isEnable" checked/>{{Activer}}</label>
+              <label class="checkbox-inline"><input type="checkbox" class="eqLogicAttr" data-l1key="isVisible" checked/>{{Visible}}</label>
+            </div>
           </div>
-      </div-->
+
         </fieldset>
       </form>
+
+      <form class="form-horizontal">
+        <fieldset>
+          <legend><i class="fas fa-user-edit"></i> {{Informations concernant la personne dépendante}} <sup><i class="fas fa-question-circle tooltips" title="{{Ces informations seront utilisées uniquement pour la saisie de tags dans les messages d'alertes, tous ces champs sont facultatifs.}}"></i></sup></legend>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Nom }}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="senior_name" placeholder="{{Nom de la personne dépendante}}"/>
+            </div>
+            <div class="col-sm-3">{{tag <strong>#senior_name#</strong>}}</div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Téléphone }}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="senior_phone" placeholder="{{Numéro de téléphone de la personne dépendante}}"/>
+            </div>
+            <div class="col-sm-3">{{tag <strong>#senior_phone#</strong>}}</div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Adresse ou n° logement }}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="senior_address" placeholder="{{Adresse ou n° logement de la personne dépendante}}"/>
+            </div>
+            <div class="col-sm-3">{{tag <strong>#senior_address#</strong>}}</div>
+          </div>
+
+          <br>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Nom personne de confiance }}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="trusted_person_name" placeholder="{{Nom de la personne de confiance}}"/>
+            </div>
+            <div class="col-sm-3">{{tag <strong>#trusted_person_name#</strong>}}</div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">{{Téléphone personne de confiance }}</label>
+            <div class="col-sm-3">
+              <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="trusted_person_phone" placeholder="{{Numéro de téléphone de la personne de confiance}}"/>
+            </div>
+            <div class="col-sm-3">{{tag <strong>#trusted_person_phone#</strong>}}</div>
+          </div>
+        </fieldset>
+      </form>
+
     </div>
 
     <!-- TAB Capteurs Confort -->
@@ -134,7 +168,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
           <legend><i class="fas fa-bomb"></i> {{Actions avertissement (pour chaque capteur hors seuils, je dois ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées dès la sortie des seuils d'un capteur de confort.
           Actions à définir pour la personne dépendante et/ou pour les aidants.
           Des actions complexes peuvent être créées par scenario.
-          Tags utilisables : #senior_name#, #sensor_name#, #sensor_type#, #sensor_value#, #low_threshold#, #high_threshold#, #unit#.}}"></i></sup>
+          Tags utilisables : voir doc.}}"></i></sup>
             <a class="btn btn-success btn-sm addAction" data-type="action_warning_confort" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
           </legend>
           <div id="div_action_warning_confort"></div>
@@ -156,7 +190,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <form class="form-horizontal">
         <fieldset>
           <legend><i class="fas fa-hand-paper"></i> {{Actions arrêt d'avertissement - pour chaque capteur de retour dans les seuils, je dois ?}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées lorsqu'un capteur précédemment hors seuils retourne dans ses bornes.
-          Tag utilisable : #senior_name#.}}"></i></sup>
+          Tags utilisables : voir doc.}}"></i></sup>
             <a class="btn btn-success btn-sm addAction" data-type="action_cancel_warning_confort" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
           </legend>
           <div id="div_action_cancel_warning_confort"></div>
@@ -167,7 +201,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <form class="form-horizontal">
         <fieldset>
           <legend><i class="fas fa-hand-peace"></i> {{Actions arrêt d'avertissement - lorsque tous les capteurs sont dans les seuils, je dois ?}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées lorsque tous les capteurs sont à l'intérieur des seuils définis.
-          Tag utilisable : #senior_name#.}}"></i></sup>
+          Tags utilisables : voir doc.}}"></i></sup>
             <a class="btn btn-success btn-sm addAction" data-type="action_cancel_all_warning_confort" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
           </legend>
           <div id="div_action_cancel_all_warning_confort"></div>
@@ -198,7 +232,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <form class="form-horizontal">
         <fieldset>
           <legend><i class="fas fa-bomb"></i> {{Actions alerte immédiate}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées à l'activation d'un capteur de sécurité.
-          Tag utilisable : #senior_name#, #sensor_name# ou #sensor_type#}}"></i></sup>
+          Tags utilisables : voir doc.}}"></i></sup>
             <a class="btn btn-success btn-sm addAction" data-type="action_security" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
           </legend>
           <div id="div_action_security"></div>
@@ -222,7 +256,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
       <form class="form-horizontal">
         <fieldset>
           <legend><i class="fas fa-hand-paper"></i> {{Actions pour arrêter l'alerte (pour annuler l'alerte, je dois ?)}} <sup><i class="fas fa-question-circle tooltips" title="{{Actions réalisées sur activation d'un bouton d'annulation d'alerte.
-            Tag utilisable : #senior_name#.}}"></i></sup>
+            Tags utilisables : voir doc.}}"></i></sup>
             <a class="btn btn-success btn-sm addAction" data-type="action_cancel_security" style="margin:5px;"><i class="fas fa-plus-circle"></i> {{Ajouter une action}}</a>
           </legend>
           <div id="div_action_cancel_security"></div>

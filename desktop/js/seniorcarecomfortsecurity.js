@@ -184,7 +184,7 @@ function addSensorSecurity(_info) {
         div += '<select class="expressionAttr eqLogicAttr form-control tooltips" data-l1key="sensor_security_type">';
           div += '<option value="CO2">CO2</option>';
           div += '<option value="smoke">Fumées</option>';
-          div += '<option value="gaz">gaz</option>';
+          div += '<option value="gaz">Gaz</option>';
           div += '<option value="other">Divers</option>';
         div += '</select>';
       div += '</div>';

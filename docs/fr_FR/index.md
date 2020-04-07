@@ -28,7 +28,7 @@ Changelog
 
 Voir le [Changelog](https://agp42.github.io/seniorcarecomfortsecurity/fr_FR/changelog)
 
-Seuls les modifications ayant un impact fonctionnel sur le plugin sont listées dans le changelog.
+Seules les modifications ayant un impact fonctionnel sur le plugin sont listées dans le changelog.
 
 Configuration du plugin
 ========================

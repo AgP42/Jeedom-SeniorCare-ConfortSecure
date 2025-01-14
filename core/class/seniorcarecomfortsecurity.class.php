@@ -173,7 +173,7 @@ class seniorcarecomfortsecurity extends eqLogic {
 
               if($confort['seuilBas'] != '' || $confort['seuilHaut'] != '') { // évalue si on a au moins 1 seuil defini (de toute facon on peut pas n'en remplir qu'1 des deux)
 
-                $etatSensor *= $seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']); // on appelle la fct d'évaluation et on fait le produit du retour de chacun
+                $etatSensor *= (int)$seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']); // on appelle la fct d'évaluation et on fait le produit du retour de chacun
                 // il suffit qu'il y ai 1 capteur qui renvoie 0 pour que notre $etatSensor passe a 0
 
                 log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, etatSensor : ' . $etatSensor);
@@ -358,7 +358,9 @@ class seniorcarecomfortsecurity extends eqLogic {
       //        log::add('seniorcarecomfortsecurity', 'debug', 'apres if update confort : , $sensor[seuilBas] : ' . $sensor['seuilBas'] . ', $cmd->getConfiguration(minValue) : ' . $cmd->getConfiguration('minValue'));
 
               // va chopper la valeur de la commande puis la suivre a chaque changement
-              if (is_nan($cmd->execCmd()) || $cmd->execCmd() == '') {
+			  $value = $cmd->execCmd();
+			  if (!is_numeric($value) || is_nan((float)$value) || $value == '') {
+              //if (is_nan($cmd->execCmd()) || $cmd->execCmd() == '') {
                 $cmd->setCollectDate('');
                 $cmd->event($cmd->execute());
               }
@@ -425,7 +427,9 @@ class seniorcarecomfortsecurity extends eqLogic {
           $cmd->save();
 
           // va chopper la valeur de la commande puis la suivre a chaque changement
-          if (is_nan($cmd->execCmd()) || $cmd->execCmd() == '') {
+		  $value = $cmd->execCmd();
+		  if (!is_numeric($value) || is_nan((float)$value) || $value == '') {
+          //if (is_nan($cmd->execCmd()) || $cmd->execCmd() == '') {
             $cmd->setCollectDate('');
             $cmd->event($cmd->execute());
           }
@@ -579,5 +583,3 @@ class seniorcarecomfortsecurityCmd extends cmd {
 
     /*     * **********************Getteur Setteur*************************** */
 }
-
-

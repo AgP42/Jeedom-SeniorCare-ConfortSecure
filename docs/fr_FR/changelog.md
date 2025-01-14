@@ -1,3 +1,11 @@
+# Stables
+
+0.0.3 - 14 janvier 2025
+---
+
+* Modification pour debian 12
+
+
 # Beta
 
 0.0.1 - 22 mars 2020
@@ -15,3 +23,8 @@
 * Pour les capteurs sécurité : ils ne déclenchent maintenant que sur le 1er front montant (ou descendant si "Inverser" est coché dans la conf)
 * Ajouts des logs "Info" pour confort et sécurité
 * Mise à jour documentation
+
+0.0.3 - 14 janvier 2025
+---
+
+* Modification pour debian 12

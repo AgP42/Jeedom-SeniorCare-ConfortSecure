@@ -87,7 +87,7 @@ $("body").undelegate(".listAction", 'click').delegate(".listAction", 'click', fu
   });
 });
 
-// TODO ce morceau de code est un copier/coller du plugin thermostat, a voir s'il n'y a pas des trucs inutiles là-dedans => A  priori ne sert effectivement a rien...
+//sert à charger les champs quand on clique dehors -> A garder !!!
 $('body').off('focusout','.cmdAction.expressionAttr[data-l1key=cmd]').on('focusout','.cmdAction.expressionAttr[data-l1key=cmd]',function (event) {
   var type = $(this).attr('data-type');
   var expression = $(this).closest('.' + type).getValues('.expressionAttr');

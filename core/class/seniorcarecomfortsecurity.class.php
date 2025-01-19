@@ -169,15 +169,23 @@ class seniorcarecomfortsecurity extends eqLogic {
             $etatSensor = 1;
             foreach ($seniorcarecomfortsecurity->getConfiguration('confort') as $confort) { // on boucle direct dans la conf
 
-              log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, name : ' . $confort['name'] . ' - cmd : ' . $confort['cmd']  . ' - ' . $confort['sensor_confort_type'] . ' - ' . $confort['seuilBas'] . ' - ' . $confort['seuilHaut']);
+              log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, name : ' . $confort['name'] . ' - cmd : ' . $confort['cmd']  . ' - ' . $confort['sensor_confort_type'] . ' - ' . print_r($confort['seuilBas'],true) . ' - ' . print_r($confort['seuilHaut'],true));
 
-              if($confort['seuilBas'] != '' || $confort['seuilHaut'] != '') { // évalue si on a au moins 1 seuil defini (de toute facon on peut pas n'en remplir qu'1 des deux)
+			  if (is_numeric($confort['seuilBas']) && is_numeric($confort['seuilHaut'])) {
+              //if($confort['seuilBas'] != '' || $confort['seuilHaut'] != '') { // évalue si on a au moins 1 seuil defini (de toute facon on peut pas n'en remplir qu'1 des deux)
 
-                $etatSensor *= (int)$seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']); // on appelle la fct d'évaluation et on fait le produit du retour de chacun
+                $result = $seniorcarecomfortsecurity->checkAndActionSeuilsSensorConfort($seniorcarecomfortsecurity, $confort['name'], $confort['cmd'], $confort['seuilBas'], $confort['seuilHaut'], $confort['sensor_confort_type']); // on appelle la fct d'évaluation et on fait le produit du retour de chacun
                 // il suffit qu'il y ai 1 capteur qui renvoie 0 pour que notre $etatSensor passe a 0
+				if (is_numeric($result)) {
+				    $etatSensor *= (int)$result;
+				} else {
+				    log::add('seniorcarecomfortsecurity', 'error', 'checkAndActionSeuilsSensorConfort a retourné une valeur non valide : ' . print_r($result, true));
+				}
 
                 log::add('seniorcarecomfortsecurity', 'debug', 'Cron15 boucle capteurs confort, etatSensor : ' . $etatSensor);
-              }
+              } else {
+				log::add('seniorcarecomfortsecurity', 'error', 'Seuils invalides détectés dans la configuration : ' . print_r($confort, true));
+			  }
 
             } // fin foreach tous les capteurs conforts de la conf
 

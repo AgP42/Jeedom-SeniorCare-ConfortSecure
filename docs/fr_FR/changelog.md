@@ -5,6 +5,10 @@
 
 * Modification pour debian 12
 
+0.0.4 - 19 janvier 2025
+---
+
+* Correctif debian 12
 
 # Beta
 
@@ -28,3 +32,8 @@
 ---
 
 * Modification pour debian 12
+
+0.0.4 - 19 janvier 2025
+---
+
+* Correctif debian 12

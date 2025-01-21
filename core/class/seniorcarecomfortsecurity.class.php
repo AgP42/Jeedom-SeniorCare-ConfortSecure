@@ -75,10 +75,10 @@ class seniorcarecomfortsecurity extends eqLogic {
 
     // TODO on pourrait ajouter une durée min pendant laquelle le capteur est hors seuils avant de déclencher l'alerte
     // TODO on pourrait ajouter la date de collecte de la valeur pour ne pas faire des alertes sur une vieille info, ou au contraire ajouter une alerte si pas de valeur fraiche pendant un certain temps. Mais ça peut etre aussi géré par le core dans les configuration de la cmd...
-
+	  log::add('seniorcarecomfortsecurity', 'debug', 'Fct checkAndActionSeuilsSensorConfort');
       $now = time();
       $rep_warning = $seniorcarecomfortsecurity->getConfiguration('repetition_warning');
-      $tempsDepuisActionWarningConfort = $now - $seniorcarecomfortsecurity->getCache('actionWarningConfortStartTimestamp' . $_cmd); // on garde 1 cache par cmd
+      $tempsDepuisActionWarningConfort = $now - intval($seniorcarecomfortsecurity->getCache('actionWarningConfortStartTimestamp' . $_cmd)); // on garde 1 cache par cmd
       $warningConfortLauched = $seniorcarecomfortsecurity->getCache('WarningConfortLauched' . $_cmd);
 
       $valeur = jeedom::evaluateExpression($_cmd);
